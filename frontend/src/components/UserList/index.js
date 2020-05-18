@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Trash, Catalog, View } from "grommet-icons"
-import { DataTable, Button } from "grommet"
+import { DataTable, Button, Menu } from "grommet"
 import LoadingBar from "./LoadingBar"
 import services from "../../services"
 import "./index.css"
@@ -61,6 +61,8 @@ export default function Userslist(props) {
         )
     }
 
+    const renderShowOrHideLabel = (user) => (user.show ? "Esconder" : "Mostrar")
+
     return (
         <>
             {runLoadingBar && renderLoadingBar()}
@@ -86,11 +88,11 @@ export default function Userslist(props) {
                         },
                     },
                     {
-                        header: "Opções",
+                        header: "",
                         align: "center",
                         render: (user) => (
                             <>
-                                <Button
+                                {/* <Button
                                     onClick={() => removeUser(user)}
                                     primary
                                     margin="xsmall"
@@ -109,6 +111,30 @@ export default function Userslist(props) {
                                     primary
                                     margin="xsmall"
                                     icon={<View size="small" />}
+                                /> */}
+                                <Menu
+                                    label="Menu"
+                                    size="small"
+                                    dropAlign="center"
+                                    items={[
+                                        {
+                                            label: "Remover",
+                                            onClick: () => removeUser(user),
+                                        },
+                                        {
+                                            label: "Visualizar",
+                                            onClick: () =>
+                                                showUserDetails(user),
+                                        },
+                                        {
+                                            label: `${renderShowOrHideLabel(
+                                                user
+                                            )} resultado`,
+                                            onClick: () => {
+                                                resultToggle(user)
+                                            },
+                                        },
+                                    ]}
                                 />
                             </>
                         ),

@@ -25,7 +25,7 @@ export default function App() {
         const usersNoFriend = list?.filter((user) => {
             return !user.friend
         })
-        if (usersNoFriend?.length > 0 || list.length < 2) {
+        if (usersNoFriend?.length > 0 && list.length >= 2) {
             setSendButton(true)
         }
     }, [list])
@@ -100,7 +100,16 @@ export default function App() {
 
     return (
         <Box direction="row" justify="center" align="start" wrap="true">
-            <Box justify="start" align="center" wrap="true">
+            {/* Main Box */}
+            <Box
+                margin="medium"
+                pad={{
+                    top: "medium",
+                }}
+                justify="start"
+                align="center"
+                wrap="true"
+            >
                 <Box height="small" width="small">
                     <Image fit="cover" src={logo} />
                 </Box>
@@ -108,15 +117,15 @@ export default function App() {
                 {errors.length > 0 && <ErrorList errors={errors} />}
                 {renderEmailFeedback()}
             </Box>
+            {/* Table Box */}
             <Box
                 focusIndicator="false"
                 elevation="large"
                 width={{
-                    min: "430",
+                    min: "360",
                 }}
                 background="light-3"
                 border={{ color: "brand", size: "medium" }}
-                margin="medium"
                 pad={{
                     top: "medium",
                 }}
