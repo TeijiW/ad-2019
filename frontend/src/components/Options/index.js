@@ -7,21 +7,23 @@ export default function Options(props) {
     const { setError, setErrors, setSubmitLabel, formToggle } = props
 
     const draw = async () => {
-        const ok = await services.draw().run()
-        if (ok) {
+        try {
+            await services.draw().run()
             setErrors([])
             return window.location.reload()
+        } catch (error) {
+            setError(error)
         }
-        setError("Não foi possível realizar o sorteio, tente novamente")
     }
 
     const removeAll = async () => {
-        const ok = await services.user().removeAll()
-        if (ok) {
+        try {
+            await services.user().removeAll()
             setErrors([])
             return window.location.reload()
+        } catch (error) {
+            setError("Não foi possível remover todos os participantes")
         }
-        setError("Não foi possível remover todos os participantes")
     }
 
     const addUser = async () => {

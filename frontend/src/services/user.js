@@ -8,8 +8,8 @@ export default function user() {
             const response = await axios.get()
             return response.data
         } catch (error) {
-            console.log(error)
-            return error.response.status
+            console.error(error)
+            throw "Não foi possível obter os dados atualizados"
         }
     }
 
@@ -18,20 +18,17 @@ export default function user() {
             await axios.delete(`/${user._id}`)
             return null
         } catch (error) {
-            console.log(error)
-            return "Erro desconhecido"
+            console.error(error)
+            throw "Ocorreu um erro ao tentar remover o participante"
         }
     }
 
     const removeAll = async () => {
         try {
-            const response = await axios.delete()
-            console.log(response.status)
-            return true
+            await axios.delete()
         } catch (error) {
-            console.log(error)
-            console.log(error.response.status)
-            return false
+            console.error(error)
+            throw "Ocorreu um erro ao tentar remover todos os participantes"
         }
     }
 
@@ -43,13 +40,11 @@ export default function user() {
             if (user?._id) {
                 await axios.put(`/${user._id}`, user)
             }
-            return null
         } catch (error) {
-            console.log(error)
             if (error.response.status === 400) {
-                return "Participante não adicionado. Verifique os dados e tente novamente"
+                throw "Participante não adicionado. Verifique os dados e tente novamente"
             }
-            return "Erro desconhecido"
+            throw "Erro desconhecido"
         }
     }
 

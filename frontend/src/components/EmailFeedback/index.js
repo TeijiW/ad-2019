@@ -4,20 +4,27 @@ import { Send } from "grommet-icons"
 import services from "../../services"
 
 export default function EmailFeedback(props) {
-    const [successText, SetSuccessText] = useState(false)
-    const { setError, setErrors, sendButton } = props
+    // const [showEmailText, setShowEmailText] = useState(false)
+    const {
+        setError,
+        setErrors,
+        sendButton,
+        showEmailText,
+        setShowEmailText,
+    } = props
 
     const sendEmail = async () => {
-        const ok = await services.email().send()
-        if (ok) {
+        try {
+            await services.email().send()
             setErrors([])
-            SetSuccessText(true)
+            setShowEmailText(true)
             return null
+        } catch (error) {
+            setError(error)
         }
-        setError("Não foi possível enviar os resultados")
     }
 
-    const renderSuccessText = () => (
+    const renderShowEmailText = () => (
         <Box
             width={{
                 max: "medium",
@@ -77,7 +84,7 @@ export default function EmailFeedback(props) {
 
     return (
         <>
-            {successText && renderSuccessText()}
+            {showEmailText && renderShowEmailText()}
             <Button
                 disabled={sendButton}
                 primary

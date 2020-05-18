@@ -6,16 +6,17 @@ export default function UserForm(props) {
     const { formToggle, setError, submitLabel, setErrors, showForm } = props
 
     const submit = async (data) => {
-        const error = await services.user().save({
-            name: data.name,
-            email: data.email,
-        })
-        if (error) {
-            setError(error)
-        } else {
+        try {
+            await services.user().save({
+                name: data.name,
+                email: data.email,
+            })
             setErrors([])
+        } catch (error) {
+            setError(error)
+        } finally {
+            formToggle()
         }
-        formToggle()
     }
 
     if (showForm) {

@@ -9,27 +9,27 @@ import {
     Text,
 } from "grommet"
 
-export default function userDetails(props) {
+export default function UserDetails(props) {
     const { userData, detailsToggle } = props
 
     return (
         <Box size="large">
-            <Table>
+            <Table alignSelf="center">
                 <TableBody>
                     <TableRow>
                         <TableCell scope="col" border="bottom">
                             <strong>Nome</strong>
                         </TableCell>
-                        <TableCell size="small" scope="col">
-                            <Text size="small">{userData.name}</Text>
+                        <TableCell size="medium" scope="col">
+                            <Text wordBreak="break-word">{userData.name}</Text>
                         </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell scope="col" border="bottom">
                             <strong>Email</strong>
                         </TableCell>
-                        <TableCell size="small" scope="col">
-                            <Text size="small">{userData.email}</Text>
+                        <TableCell size="medium" scope="col">
+                            <Text wordBreak="break-word">{userData.email}</Text>
                         </TableCell>
                     </TableRow>
                 </TableBody>
@@ -37,6 +37,9 @@ export default function userDetails(props) {
             <Button
                 size="small"
                 margin="small"
+                width={{
+                    max: "small",
+                }}
                 onClick={() => detailsToggle()}
                 label="Voltar"
             />

@@ -24,18 +24,21 @@ export default function Userslist(props) {
                 setRunLoadingBar(false)
                 setList(rawList)
             } catch (error) {
-                console.log(error)
+                setError(error)
+                console.error(error)
             }
         }
         fetchList()
     }, [])
 
     const removeUser = async (user) => {
-        const error = await services.user().removeOne(user)
-        if (error) {
+        try {
+            await services.user().removeOne(user)
+        } catch (error) {
             setError(error)
+        } finally {
+            window.location.reload()
         }
-        window.location.reload()
     }
 
     const renderLoadingBar = () => {

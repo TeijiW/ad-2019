@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Box } from "grommet"
+import { Box, Image } from "grommet"
 
 import {
     Description,
@@ -10,29 +10,17 @@ import {
     EmailFeedback,
     ErrorList,
 } from "./components"
+import logo from "./images/logo.png"
 
 export default function App() {
     const [list, setList] = useState([])
-    const [sendButton, setSendButton] = useState(false)
     const [errors, setErrors] = useState([])
     const [submitLabel, setSubmitLabel] = useState("Adicionar")
     const [showForm, setShowForm] = useState(false)
     const [showDetails, setShowDetails] = useState(false)
+    const [sendButton, setSendButton] = useState(false)
+    const [showEmailText, setShowEmailText] = useState(false)
     const [userData, setUserData] = useState({})
-
-    const setError = (error) => {
-        if (!errors.includes(error)) {
-            setErrors([...errors, error])
-        }
-    }
-
-    const formToggle = () => {
-        setShowForm(!showForm)
-    }
-
-    const detailsToggle = () => {
-        setShowDetails(!showDetails)
-    }
 
     useEffect(() => {
         const usersNoFriend = list?.filter((user) => {
@@ -42,6 +30,22 @@ export default function App() {
             setSendButton(true)
         }
     }, [list])
+
+    const setError = (error) => {
+        if (!errors.includes(error)) {
+            setErrors([...errors, error])
+        }
+    }
+
+    const formToggle = () => {
+        setShowEmailText(false)
+        setShowForm(!showForm)
+    }
+
+    const detailsToggle = () => {
+        setShowEmailText(false)
+        setShowDetails(!showDetails)
+    }
 
     const showUserDetails = (data) => {
         setUserData(data)
@@ -81,31 +85,36 @@ export default function App() {
         </>
     )
 
+    const renderEmailFeedback = () => (
+        <EmailFeedback
+            setError={setError}
+            setErrors={setErrors}
+            showEmailText={showEmailText}
+            setShowEmailText={setShowEmailText}
+            sendButton={sendButton}
+        />
+    )
+
     return (
-        <Box
-            background="light-5"
-            direction="column"
-            justify="start"
-            align="center"
-            wrap="true"
-        >
+        <Box direction="column" justify="start" align="center" wrap="true">
+            <Box height="small" width="small">
+                <Image fit="cover" src={logo} />
+            </Box>
             <Description />
             {errors.length > 0 && <ErrorList errors={errors} />}
-            <EmailFeedback
-                setError={setError}
-                setErrors={setErrors}
-                sendButton={sendButton}
-            />
+            {renderEmailFeedback()}
             <Box
                 focusIndicator="false"
                 elevation="large"
                 width={{
                     min: "430",
                 }}
-                background="light-2"
+                background="light-3"
                 border={{ color: "brand", size: "medium" }}
                 margin="medium"
-                pad="medium"
+                pad={{
+                    top: "medium",
+                }}
             >
                 {showDetails && renderDetails()}
                 {showForm && renderForm()}
