@@ -13,7 +13,7 @@
         "node-mailjet": "^3.3.1"
     },
     "scripts": {
-        "start": "nodemon src/server.js"
+        "start": "node src/server.js"
     },
     "devDependencies": {}
 }

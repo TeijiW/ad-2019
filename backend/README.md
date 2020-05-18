@@ -1,12 +1,12 @@
-# ad-2019/frontend
+# ad-2019/backend
 
-Aplicação web que consome a implementação digital do "amigo secreto"
+Web API que serve a implementação digital do "amigo secreto"
 
 ## 🚀 Passos para executar
 
 -   `git clone https://github.com/TeijiW/ad-2019`
 -   `cd ad-2019`
--   `cd frontend`
+-   `cd backend`
 -   `yarn`
 -   `yarn start`
 
