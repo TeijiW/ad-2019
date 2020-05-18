@@ -16,3 +16,8 @@ Uma implementação digital da brincadeira "amigo secreto"
 -   Inicie as aplicações "[backend](backend/README.md)
     " e "[frontend](frontend/README.md)" individualmente seguindo os passos presentes em cada um dos projetos
 -   Acesse `http://localhost:3000`
+
+## Observações
+
+-   Mailjet foi escolhido por possuir uma ótima documentação da sua API para o envio dos emails
+-   A biblioteca de estilos utlizada foi a Grommet
