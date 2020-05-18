@@ -4,9 +4,14 @@ import { UserAdd, Close, Cycle } from "grommet-icons"
 import services from "../../services"
 
 export default function Options(props) {
-    const { setError, setErrors, setSubmitLabel, formToggle } = props
+    const { setError, setErrors, formToggle, listLength } = props
 
     const draw = async () => {
+        if (listLength < 2) {
+            return setError(
+                "Não é possível realizar sorteio com menos de duas pessoas"
+            )
+        }
         try {
             await services.draw().run()
             setErrors([])
@@ -27,7 +32,6 @@ export default function Options(props) {
     }
 
     const addUser = async () => {
-        setSubmitLabel("Adicionar")
         formToggle()
     }
     return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Trash, Catalog } from "grommet-icons"
+import { Trash, Catalog, View } from "grommet-icons"
 import { DataTable, Button } from "grommet"
 import LoadingBar from "./LoadingBar"
 import services from "../../services"
@@ -50,6 +50,17 @@ export default function Userslist(props) {
         )
     }
 
+    const resultToggle = (user) => {
+        setList(
+            list.map((item) => {
+                if (user._id === item._id) {
+                    item.show = !item.show
+                }
+                return item
+            })
+        )
+    }
+
     return (
         <>
             {runLoadingBar && renderLoadingBar()}
@@ -69,9 +80,9 @@ export default function Userslist(props) {
                         align: "center",
                         render: (user) => {
                             if (user.friend) {
-                                return user.friend.name
+                                return user.show ? user.friend.name : "?"
                             }
-                            return "?"
+                            return "-"
                         },
                     },
                     {
@@ -90,6 +101,14 @@ export default function Userslist(props) {
                                     primary
                                     margin="xsmall"
                                     icon={<Catalog size="small" />}
+                                />
+                                <Button
+                                    onClick={() => {
+                                        resultToggle(user)
+                                    }}
+                                    primary
+                                    margin="xsmall"
+                                    icon={<View size="small" />}
                                 />
                             </>
                         ),

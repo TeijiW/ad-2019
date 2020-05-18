@@ -41,7 +41,7 @@ export default function UserForm(props) {
                         margin="small"
                         type="submit"
                         primary
-                        label={submitLabel}
+                        label="Adicionar"
                     />
                     <Button
                         size="small"

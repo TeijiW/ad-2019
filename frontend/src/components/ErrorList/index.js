@@ -9,8 +9,12 @@ export default function ErrorList(props) {
                 size: "medium",
             }}
             margin="small"
-            pad="small"
+            width={{
+                max: "medium",
+            }}
             background="status-error"
+            justify="center"
+            align="center"
         >
             <Text
                 textAlign="center"

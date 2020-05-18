@@ -71,13 +71,12 @@ export default function EmailFeedback(props) {
             width={{
                 max: "medium",
             }}
-            margin={{
-                top: "small",
-            }}
+            margin="small"
         >
             <Text textAlign="center">
                 Dica: Para poder enviar o resultado, é necessário que todos os
-                usuários tenham um amigo sorteado
+                usuários tenham um amigo sorteado e que tenha ao menos dois
+                participantes
             </Text>
         </Box>
     )

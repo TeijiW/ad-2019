@@ -15,7 +15,6 @@ import logo from "./images/logo.png"
 export default function App() {
     const [list, setList] = useState([])
     const [errors, setErrors] = useState([])
-    const [submitLabel, setSubmitLabel] = useState("Adicionar")
     const [showForm, setShowForm] = useState(false)
     const [showDetails, setShowDetails] = useState(false)
     const [sendButton, setSendButton] = useState(false)
@@ -26,7 +25,7 @@ export default function App() {
         const usersNoFriend = list?.filter((user) => {
             return !user.friend
         })
-        if (usersNoFriend?.length > 0) {
+        if (usersNoFriend?.length > 0 || list.length < 2) {
             setSendButton(true)
         }
     }, [list])
@@ -39,11 +38,17 @@ export default function App() {
 
     const formToggle = () => {
         setShowEmailText(false)
+        if (errors.length > 0) {
+            setErrors([])
+        }
         setShowForm(!showForm)
     }
 
     const detailsToggle = () => {
         setShowEmailText(false)
+        if (errors.length > 0) {
+            setErrors([])
+        }
         setShowDetails(!showDetails)
     }
 
@@ -60,7 +65,6 @@ export default function App() {
         <UserForm
             showForm={showForm}
             formToggle={formToggle}
-            submitLabel={submitLabel}
             setError={setError}
             setErrors={setErrors}
         />
@@ -71,11 +75,10 @@ export default function App() {
             <Options
                 setError={setError}
                 setErrors={setErrors}
-                setSubmitLabel={setSubmitLabel}
                 formToggle={formToggle}
+                listLength={list.length}
             />
             <UserList
-                setSubmitLabel={setSubmitLabel}
                 setError={setError}
                 formToggle={formToggle}
                 list={list}
@@ -96,13 +99,15 @@ export default function App() {
     )
 
     return (
-        <Box direction="column" justify="start" align="center" wrap="true">
-            <Box height="small" width="small">
-                <Image fit="cover" src={logo} />
+        <Box direction="row" justify="center" align="start" wrap="true">
+            <Box justify="start" align="center" wrap="true">
+                <Box height="small" width="small">
+                    <Image fit="cover" src={logo} />
+                </Box>
+                <Description />
+                {errors.length > 0 && <ErrorList errors={errors} />}
+                {renderEmailFeedback()}
             </Box>
-            <Description />
-            {errors.length > 0 && <ErrorList errors={errors} />}
-            {renderEmailFeedback()}
             <Box
                 focusIndicator="false"
                 elevation="large"
