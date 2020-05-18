@@ -31,7 +31,11 @@ const create = async (req, res) => {
         const user = await User.create(req.body)
         return res.status(201).send(user)
     } catch (error) {
-        return res.status(400).json({ error: "User not created" })
+        console.log(error.code)
+        if (error.code === 11000) {
+            return res.status(400).json({ error: "User not created" })
+        }
+        return res.status(500).json({ error: "Internal Error" })
     }
 }
 
@@ -50,12 +54,14 @@ const update = async (req, res) => {
                 new: true,
             }
         )
-        return res.status(201).json(user)
+        if (!user)
+            return res
+                .status(400)
+                .json({ error: "User not updated, Bad Update Request" })
+        return res.status(200).json({ user })
     } catch (error) {
         console.log(error)
-        res.status(400).json({
-            error: "Sorry, some error occurs when updating user",
-        })
+        res.status(500).json({ error: "Internal Error" })
     }
 }
 

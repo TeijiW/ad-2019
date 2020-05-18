@@ -1,6 +1,3 @@
-// const UserController = require("./controllers/UserController")
-// const DrawController = require("./controllers/DrawController")
-// const EmailController = require("./controllers/EmailController")
 const controllers = require("./controllers")
 
 module.exports = (app) => {
@@ -12,7 +9,7 @@ module.exports = (app) => {
         .get(controllers.User.indexById)
         .put(controllers.User.update)
         .delete(controllers.User.remove)
-    app.route("/draw").get(controllers.Draw.run)
+    app.route("/draw").get(controllers.Draw.lots)
 
     app.route("/email").get(controllers.Email.sendResult)
 }
