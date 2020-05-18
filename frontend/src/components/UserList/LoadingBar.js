@@ -5,7 +5,9 @@ export default function LoadingBar(props) {
     let { loadingCounter, setLoadingCounter } = props
 
     useEffect(() => {
-        setLoadingCounter((loadingCounter += 3))
+        if (loadingCounter <= 100) {
+            setLoadingCounter((loadingCounter += 3))
+        }
     }, [setLoadingCounter, loadingCounter])
 
     return (

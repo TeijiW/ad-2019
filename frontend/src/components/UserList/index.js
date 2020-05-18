@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Trash, Catalog } from "grommet-icons"
-import { Box, DataTable, Button } from "grommet"
+import { DataTable, Button } from "grommet"
 import LoadingBar from "./LoadingBar"
 import services from "../../services"
 import "./index.css"
 
 export default function Userslist(props) {
-    const {
-        list,
-        setList,
-        setError,
-        showUserDetails,
-        setSubmitLabel,
-        formToggle,
-    } = props
+    const { list, setList, setError, showUserDetails } = props
 
     const [runLoadingBar, setRunLoadingBar] = useState(true)
     let [loadingCounter, setLoadingCounter] = useState(0)
@@ -58,9 +51,6 @@ export default function Userslist(props) {
         <>
             {runLoadingBar && renderLoadingBar()}
             <DataTable
-                onClickRow={({ datum }) => {
-                    showUserDetails(datum)
-                }}
                 alignSelf="center"
                 data={list}
                 columns={[

@@ -1,33 +1,25 @@
 const User = require("../models/User")
-const isValidFriend = require("../utils/isValidFriend")
+// const isValidFriend = require("../utils/isValidFriend")
+const { draw } = require("../services")
 
-const draw = async (req, res) => {
+const run = async (req, res) => {
     try {
         await User.updateMany({}, { friend: null })
         const users = await User.find()
-        const unavailableUsers = []
 
-        users.forEach((user) => {
-            let friend = null
-            do {
-                friend = users[Math.floor(Math.random() * users.length)]
-            } while (!isValidFriend(friend, user, users, unavailableUsers))
+        const shuffledUsers = draw.run(users)
 
-            unavailableUsers.push(friend._id)
-            user.friend = friend._id
-        })
-
-        users.map(async (user) => {
+        shuffledUsers.map(async (user) => {
             return await User.findByIdAndUpdate(user._id, user, {
                 new: true,
             })
         })
 
-        return res.json(users)
+        return res.json(shuffledUsers)
     } catch (error) {
         console.log(error)
         return res.send(error).end()
     }
 }
 
-module.exports = { draw }
+module.exports = { run }

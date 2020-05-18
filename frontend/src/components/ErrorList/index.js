@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Text, Heading, List } from "grommet"
+import { Box, Text, List } from "grommet"
 
 export default function ErrorList(props) {
     return (

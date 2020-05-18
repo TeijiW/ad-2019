@@ -1,4 +1,4 @@
-const mailer = require("../services/emailService")
+const { email } = require("../services")
 const User = require("../models/User")
 
 const sendResult = async (req, res) => {
@@ -9,15 +9,13 @@ const sendResult = async (req, res) => {
         usersList.push(users[i])
     }
 
-    usersList.forEach(async (user) => {
-        try {
-            await mailer.send(user)
-        } catch (error) {
-            console.log(error)
-            return res.status(500).json({ message: "Something went wrong :c" })
-        }
-    })
-    return res.json({ message: "All Email sent!" })
+    try {
+        email.send(usersList)
+        return res.status(204).end()
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ error: "Internal Server Error" })
+    }
 }
 
 module.exports = { sendResult }
