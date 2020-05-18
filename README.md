@@ -21,3 +21,7 @@ Uma implementação digital da brincadeira "amigo secreto"
 
 -   Mailjet foi escolhido por possuir uma ótima documentação da sua API para o envio dos emails
 -   A biblioteca de estilos utlizada foi a Grommet
+
+## Link das aplicações
+- [Backend](https://ad-2019-backend-teijiw.herokuapp.com/)
+- [Frontend](https://ad-2019-frontend-teijiw.herokuapp.com/)
